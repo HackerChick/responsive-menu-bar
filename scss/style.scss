@@ -131,9 +131,6 @@ header, .navbar-spacer{
       opacity: 0;
     }
 
-    &.submenu-open > li > ul{
-      @include transform(translateX(0));
-    }
   }
 }
 
@@ -197,19 +194,20 @@ header, .navbar-spacer{
       float:   inherit;
       // will display when it slides in
       opacity: 1;
-      @include transform(translateX(260px));
+      //@include transform(translateX(260px));
       @include transition(transform .3s);
     }
 
   }
+
+
 }
 
 // Submenu navigation on desktop
 @include desktop-menu(){
   .submenu-open .sub-menu{
     @include transform(translateY(80px));
-    left: auto;
-
+    left:             auto;
     padding:          0.8em;
     background-color: $color-1;
 
@@ -217,11 +215,11 @@ header, .navbar-spacer{
     .return-to-parent-menu{ display: none; }
 
     li{
-      display:          list-item;
+      display: list-item;
     }
 
     li a{
-      color:            $color-3;
+      color: $color-3;
       @include backface-visibility(hidden);
 
       &:hover{
@@ -315,6 +313,11 @@ header, .navbar-spacer{
     left: 20px;
     @include transform-origin(1px 50%);
   }
+
+  .menu-item-has-children.is-open .sub-menu{
+    @include transform(translateX(0));
+  }
+
 }
 
 .mobile-menu-trigger{

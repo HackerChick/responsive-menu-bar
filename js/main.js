@@ -4,44 +4,45 @@
  * Based off of code from the amazing CodyHouse (http://codyhouse.co)
  *****************************************************************************************************************/
 
-jQuery(document).ready(function ($) {
+jQuery(document).ready(function (jQuery) {
     console.log("document ready");
     //move nav element position according to window width
     moveNavigation();
 
-    $(window).on('resize', function () {
+    jQuery(window).on('resize', function () {
         console.log("windows resize");
         (!window.requestAnimationFrame) ? setTimeout(moveNavigation, 300) : window.requestAnimationFrame(moveNavigation);
     });
+    
 
     // open sub-menu
-    $('.navbar-submenu-trigger').on('click', function(event){
-        console.log("Sub-Navigation (.navbar-submenu-trigger) clicked");
+    jQuery('.menu-item-has-children a').on('click', function(event){
+        console.log("Sub-Navigation (.menu-item-has-chidren a) clicked");
         event.preventDefault();
-        $('.navbar-menu').toggleClass('moves-out');
+        jQuery('.navbar-menu').toggleClass('submenu-open');
     });
 
     // mobile version - open/close navigation
-    $('.mobile-menu-trigger').on('click', function (event) {
+    jQuery('.mobile-menu-trigger').on('click', function (event) {
         console.log("mobile menu (.mobile-menu-trigger) clicked");
         event.preventDefault();
-        if ($('header').hasClass('nav-is-visible')) $('.moves-out').removeClass('moves-out');
+        if (jQuery('header').hasClass('mobile-menu-is-open')) jQuery('.submenu-open').removeClass('submenu-open');
 
-        $('header').toggleClass('nav-is-visible');
-        $('.navbar-menu').toggleClass('nav-is-visible');
-        $('.navbar-spacer').toggleClass('nav-is-visible');
+        jQuery('header').toggleClass('mobile-menu-is-open');
+        jQuery('.navbar-menu').toggleClass('mobile-menu-is-open');
+        jQuery('.navbar-spacer').toggleClass('mobile-menu-is-open');
     });
 
     // mobile version - go back to main navigation
-    $('.go-back').on('click', function (event) {
-        console.log("Return from subnav (.go-back) clicked");
+    jQuery('.return-to-parent-menu').on('click', function (event) {
+        console.log("Return from subnav (.return-to-parent-menu) clicked");
         event.preventDefault();
-        $('.navbar-menu').removeClass('moves-out');
+        jQuery('.navbar-menu').removeClass('submenu-open');
     });
 
     function moveNavigation() {
         console.log("moveNavigation");
-        var navigation = $('.main-navigation');
+        var navigation = jQuery('.main-navigation');
         var screenSize = checkWindowWidth();
         if (screenSize) {
             //desktop screen - insert navigation inside header element
@@ -56,7 +57,7 @@ jQuery(document).ready(function ($) {
 
     function checkWindowWidth() {
         console.log("checkWindowWidth");
-        var mq = window.getComputedStyle(document.querySelector('header'), '::before').getPropertyValue('content').replace(/"/g, '').replace(/'/g, "");
-        return ( mq == 'mobile' ) ? false : true;
+        var windowSize = window.getComputedStyle(document.querySelector('header'), '::before').getPropertyValue('content').replace(/"/g, '').replace(/'/g, "");
+        return ( windowSize == 'mobile' ) ? false : true;
     }
 });

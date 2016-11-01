@@ -1,4 +1,0 @@
-// breakpoint to switch to mobile menu
-$mobile-menu-breakpoint: 1024px;
-@mixin mobile-menu { @media only screen and  ( max-width: $L ) { @content; } }
-@mixin desktop-menu { @media only screen and ( min-width: $L ) { @content; } }

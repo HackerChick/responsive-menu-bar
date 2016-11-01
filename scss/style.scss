@@ -1,8 +1,4 @@
-@import '../partials/variables';
-// colors, fonts etc...
-@import '../partials/mixins';
-// custom mixins
-@import '../partials/layout'; // responsive grid and media queries
+@import '../partials/menus';
 
 /* --------------------------------
 Primary style
@@ -18,14 +14,14 @@ html{
 body{
   font:{
     size:   1.6rem;
-    family: $primary-font; // variables inside partials > _variables.scss
+    family: $primary-menu-font; // variables inside partials > _variables.scss
   }
-  color:            $color-1;
-  background-color: darken($color-3, 5%);
+  color:            $primary-menu-color-bg;
+  background-color: darken($primary-menu-color-text, 5%);
 }
 
 a{
-  color:           $color-2;
+  color:           steelblue;
   text-decoration: none;
 }
 
@@ -42,7 +38,7 @@ header{
   width:               100%;
   top:                 0;
   left:                0;
-  background-color:    $color-1;
+  background-color:    $primary-menu-color-bg;
   @include font-smoothing;
 
   // Force Hardware Acceleration
@@ -70,7 +66,7 @@ header, .navbar-spacer{
 .navbar-spacer{
   position:         relative;
   z-index:          2;
-  background-color: darken($color-3, 5%);
+  background-color: darken($primary-menu-color-text, 5%);
 }
 
 .navbar-logo{
@@ -120,7 +116,7 @@ header, .navbar-spacer{
     height:      100vh;
     line-height: inherit;
     padding:     0;
-    background:  darken($color-1, 10%);
+    background:  darken($primary-menu-color-bg, 10%);
 
     &.mobile-menu-is-open{
       visibility: visible;
@@ -147,13 +143,13 @@ header, .navbar-spacer{
   a{
     display:       block;
     padding:       0.8em;
-    color:         $color-3;
+    color:         $primary-menu-color-text;
     border-bottom: none;
     transition:    transform .3s, opacity .3s;
 
     // lines between menu items in mobile menu
     @include mobile-menu(){
-      border-bottom: 1px solid $color-1;
+      border-bottom: 1px solid $primary-menu-color-bg;
       width:         100%;
       padding:       .9em 2em .9em 1em;
     }
@@ -169,15 +165,16 @@ header, .navbar-spacer{
       transform:           translateZ(0);
       backface-visibility: hidden;
       transition:          opacity .2s;
+      @include primary-menu-item-no-hover();
+      &:hover{
+        backface-visibility: hidden;
+        @include primary-menu-item-hover();
+      }
 
       // make font a little bigger in the mobile menu
       @include mobile-menu(){ font-size: 1.8rem; }
     }
 
-    a:hover{
-      backface-visibility: hidden;
-      opacity:             .6;
-    }
   }
 
   // Submenu
@@ -214,7 +211,7 @@ header, .navbar-spacer{
     transform:        translateY(80px);
     left:             auto;
     padding:          0.8em;
-    background-color: $color-1;
+    background-color: $primary-menu-color-bg;
 
     // not used on desktop
     .return-to-parent-menu{ display: none; }
@@ -224,12 +221,13 @@ header, .navbar-spacer{
     }
 
     li a{
-      color:               $color-3;
+      color:               $primary-menu-color-text;
       backface-visibility: hidden;
+      @include primary-menu-sub-item-no-hover();
 
       &:hover{
         backface-visibility: hidden;
-        opacity:             .6;
+        @include primary-menu-sub-item-hover();
       }
     }
   }
@@ -237,14 +235,14 @@ header, .navbar-spacer{
   .menu-item-has-children > a{
     position:      relative;
     z-index:       1;
-    border:        1px solid rgba($color-3, .2);
+    border:        1px solid rgba($primary-menu-color-text, .2);
     border-radius: 5em;
     transition:    border .3s;
     padding-right: 2.4em;
     padding-left:  1.1em;
 
     &:hover{
-      border-color: rgba($color-3, .4);
+      border-color: rgba($primary-menu-color-text, .4);
     }
 
     &::before, &::after{
@@ -257,8 +255,8 @@ header, .navbar-spacer{
       height:              2px;
       width:               10px;
       right:               17px;
-      background:          lighten($color-1, 10%);
-      background-color:    $color-3;
+      background:          lighten($primary-menu-color-bg, 10%);
+      background-color:    $primary-menu-color-text;
       backface-visibility: hidden;
       /* change transform-origin to rotate the arrow */
       transform-origin:    9px 50%;
@@ -293,7 +291,7 @@ header, .navbar-spacer{
       display:             inline-block;
       height:              2px;
       width:               10px;
-      background:          lighten($color-1, 10%);
+      background:          lighten($primary-menu-color-bg, 10%);
       backface-visibility: hidden;
     }
 
@@ -351,7 +349,7 @@ header, .navbar-spacer{
     left:             50%;
     margin-left:      -10px;
     transition:       background-color .3s .3s;
-    background-color: $color-3;
+    background-color: $primary-menu-color-text;
 
     &::before, &::after{
       /* upper and lower lines of the menu icon */
@@ -359,7 +357,7 @@ header, .navbar-spacer{
       position:            absolute;
       width:               100%;
       height:              100%;
-      background-color:    $color-3;
+      background-color:    $primary-menu-color-text;
 
       /* Force Hardware Acceleration */
       transform:           translateZ(0);
@@ -374,7 +372,7 @@ header, .navbar-spacer{
 
   // Change mobile menu icon to X when menu is showing
   .mobile-menu-is-open & span{
-    background-color: rgba($color-3, 0);
+    background-color: rgba($primary-menu-color-text, 0);
     &::before{ transform: translateY(0) rotate(-45deg); }
     &::after{ transform: translateY(0) rotate(45deg); }
   }

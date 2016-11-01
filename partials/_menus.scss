@@ -1,0 +1,33 @@
+// move to mixins
+@mixin font-smoothing{
+  -webkit-font-smoothing:  antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+@mixin mobile-menu{
+  @media only screen and (max-width: $mobile-menu-breakpoint) { @content; }
+}
+
+@mixin desktop-menu{
+  @media only screen and (min-width: $mobile-menu-breakpoint) { @content; }
+}
+
+// Menu Configuration
+// ------------------
+// breakpoint to switch to mobile menu
+$mobile-menu-breakpoint: 1024px;
+
+// colors
+$primary-menu-color-bg: #33414a; // Limed Spruce
+$primary-menu-color-text: #ffffff; // White
+
+// fonts 
+$primary-menu-font: 'PT Sans', sans-serif;
+$primary-menu-font-size: 1em;
+$primary-menu-mobile-font-size: 1.1em;
+
+// what happens on hover
+@mixin primary-menu-item-hover() { opacity: 0.6; }
+@mixin primary-menu-item-no-hover() { opacity: 1; }
+@mixin primary-menu-sub-item-hover() { color: red; }
+@mixin primary-menu-sub-item-no-hover() { color: $primary-menu-color-text; }

@@ -4,7 +4,6 @@
  * Based off of code from the amazing CodyHouse (http://codyhouse.co)
  *****************************************************************************************************************/
 
-
 jQuery(document).ready(function ($) {
     console.log("document ready");
     //move nav element position according to window width
@@ -15,31 +14,30 @@ jQuery(document).ready(function ($) {
         (!window.requestAnimationFrame) ? setTimeout(moveNavigation, 300) : window.requestAnimationFrame(moveNavigation);
     });
 
-    //mobile version - open/close navigation
-    $('.cd-nav-trigger').on('click', function (event) {
-        console.log("mobile menu (.cd-nav-trigger) clicked");
+    // open sub-menu
+    $('.navbar-submenu-trigger').on('click', function(event){
+        console.log("Sub-Navigation (.navbar-submenu-trigger) clicked");
+        event.preventDefault();
+        $('.navbar-menu').toggleClass('moves-out');
+    });
+
+    // mobile version - open/close navigation
+    $('.mobile-menu-trigger').on('click', function (event) {
+        console.log("mobile menu (.mobile-menu-trigger) clicked");
         event.preventDefault();
         if ($('header').hasClass('nav-is-visible')) $('.moves-out').removeClass('moves-out');
 
         $('header').toggleClass('nav-is-visible');
-        $('.cd-main-nav').toggleClass('nav-is-visible');
-        $('.cd-main-content').toggleClass('nav-is-visible');
+        $('.navbar-menu').toggleClass('nav-is-visible');
+        $('.navbar-spacer').toggleClass('nav-is-visible');
     });
 
-    //mobile version - go back to main navigation
+    // mobile version - go back to main navigation
     $('.go-back').on('click', function (event) {
         console.log("Return from subnav (.go-back) clicked");
         event.preventDefault();
-        $('.cd-main-nav').removeClass('moves-out');
+        $('.navbar-menu').removeClass('moves-out');
     });
-
-    //open sub-navigation
-    $('.cd-subnav-trigger').on('click', function(event){
-        console.log("Sub-Navigation (.cd-subnav-trigger) clicked");
-        event.preventDefault();
-        $('.cd-main-nav').toggleClass('moves-out');
-    });
-
 
     function moveNavigation() {
         console.log("moveNavigation");
@@ -48,11 +46,11 @@ jQuery(document).ready(function ($) {
         if (screenSize) {
             //desktop screen - insert navigation inside header element
             navigation.detach();
-            navigation.insertBefore('.cd-nav-trigger');
+            navigation.insertBefore('.mobile-menu-trigger');
         } else {
-            //mobile screen - insert navigation after .cd-main-content element
+            //mobile screen - insert navigation after .navbar-spacer element
             navigation.detach();
-            navigation.insertAfter('.cd-main-content');
+            navigation.insertAfter('.navbar-spacer');
         }
     }
 

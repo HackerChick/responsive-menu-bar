@@ -1,0 +1,463 @@
+/*****************************************************************************************************************
+ * Responsive Menu Bar
+ *
+ * Based off of code from the amazing CodyHouse (http://codyhouse.co)
+ *****************************************************************************************************************/
+/* -------------------------------- 
+Primary style
+-------------------------------- */
+/* line 16, D:/Code/Web Examples/responsive menu bar/scss/style.scss */
+*, *::after, *::before {
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box; }
+
+/* line 20, D:/Code/Web Examples/responsive menu bar/scss/style.scss */
+html {
+  font-size: 62.5%; }
+
+/* line 24, D:/Code/Web Examples/responsive menu bar/scss/style.scss */
+body {
+  font-size: 1.6rem;
+  font-family: "PT Sans", sans-serif;
+  color: #33414a;
+  background-color: #f2f2f2; }
+
+/* line 33, D:/Code/Web Examples/responsive menu bar/scss/style.scss */
+a {
+  color: #7e4d7e;
+  text-decoration: none; }
+
+/* -------------------------------- 
+Main Components
+-------------------------------- */
+/* line 41, D:/Code/Web Examples/responsive menu bar/scss/style.scss */
+header {
+  position: fixed;
+  z-index: 3;
+  height: 50px;
+  width: 100%;
+  top: 0;
+  left: 0;
+  background-color: #33414a;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  /* Force Hardware Acceleration */
+  -webkit-transform: translateZ(0);
+  -moz-transform: translateZ(0);
+  -ms-transform: translateZ(0);
+  transform: translateZ(0);
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
+  -moz-transition: transform 0.3s;
+  -o-transition: transform 0.3s;
+  -webkit-transition: transform 0.3s;
+  transition: transform 0.3s; }
+  /* line 57, D:/Code/Web Examples/responsive menu bar/scss/style.scss */
+  header.nav-is-visible {
+    -webkit-transform: translateX(-260px);
+    -moz-transform: translateX(-260px);
+    -ms-transform: translateX(-260px);
+    transform: translateX(-260px); }
+  /* line 61, D:/Code/Web Examples/responsive menu bar/scss/style.scss */
+  header::before {
+    /* never visible - this is used in jQuery to check the current MQ */
+    display: none;
+    content: 'mobile'; }
+  @media only screen and (min-width: 1024px) {
+    /* line 41, D:/Code/Web Examples/responsive menu bar/scss/style.scss */
+    header {
+      height: 80px; }
+      /* line 70, D:/Code/Web Examples/responsive menu bar/scss/style.scss */
+      header.nav-is-visible {
+        -webkit-transform: translateX(0);
+        -moz-transform: translateX(0);
+        -ms-transform: translateX(0);
+        transform: translateX(0); }
+      /* line 74, D:/Code/Web Examples/responsive menu bar/scss/style.scss */
+      header::before {
+        content: 'desktop'; } }
+
+/* line 80, D:/Code/Web Examples/responsive menu bar/scss/style.scss */
+.navbar-logo {
+  display: inline-block;
+  height: 100%;
+  margin-left: 15px;
+  -webkit-transform: translateZ(0);
+  -moz-transform: translateZ(0);
+  -ms-transform: translateZ(0);
+  transform: translateZ(0);
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden; }
+  /* line 85, D:/Code/Web Examples/responsive menu bar/scss/style.scss */
+  .navbar-logo img {
+    display: block;
+    max-width: 100%;
+    margin-top: 14px; }
+  @media only screen and (min-width: 1024px) {
+    /* line 80, D:/Code/Web Examples/responsive menu bar/scss/style.scss */
+    .navbar-logo {
+      position: absolute;
+      z-index: 2;
+      margin-left: 5%; }
+      /* line 96, D:/Code/Web Examples/responsive menu bar/scss/style.scss */
+      .navbar-logo img {
+        margin-top: 29px; } }
+
+/* line 106, D:/Code/Web Examples/responsive menu bar/scss/style.scss */
+.navbar-menu {
+  position: fixed;
+  z-index: 1;
+  top: 0;
+  right: 0;
+  width: 260px;
+  height: 100vh;
+  overflow: auto;
+  -webkit-overflow-scrolling: touch;
+  visibility: hidden;
+  background: #1e262c;
+  -moz-transition: visibility 0s 0.3s;
+  -o-transition: visibility 0s 0.3s;
+  -webkit-transition: visibility 0s 0.3s;
+  transition: visibility 0s 0.3s; }
+  /* line 120, D:/Code/Web Examples/responsive menu bar/scss/style.scss */
+  .navbar-menu a {
+    display: block;
+    font-size: 1.8rem;
+    padding: .9em 2em .9em 1em;
+    color: #ffffff;
+    border-bottom: 1px solid #33414a;
+    -moz-transition: transform 0.3s, opacity 0.3s;
+    -o-transition: transform 0.3s, opacity 0.3s;
+    -webkit-transition: transform 0.3s, opacity 0.3s;
+    transition: transform 0.3s, opacity 0.3s; }
+  /* line 132, D:/Code/Web Examples/responsive menu bar/scss/style.scss */
+  .navbar-menu li ul {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    -moz-transition: transform 0.3s;
+    -o-transition: transform 0.3s;
+    -webkit-transition: transform 0.3s;
+    transition: transform 0.3s;
+    -webkit-transform: translateX(260px);
+    -moz-transform: translateX(260px);
+    -ms-transform: translateX(260px);
+    transform: translateX(260px); }
+  /* line 141, D:/Code/Web Examples/responsive menu bar/scss/style.scss */
+  .navbar-menu.nav-is-visible {
+    visibility: visible;
+    -moz-transition: visibility 0s 0s;
+    -o-transition: visibility 0s 0s;
+    -webkit-transition: visibility 0s 0s;
+    transition: visibility 0s 0s; }
+  /* line 146, D:/Code/Web Examples/responsive menu bar/scss/style.scss */
+  .navbar-menu.moves-out > li > a {
+    /* push the navigation items to the left - and lower down opacity - when secondary nav slides in */
+    -webkit-transform: translateX(-100%);
+    -moz-transform: translateX(-100%);
+    -ms-transform: translateX(-100%);
+    transform: translateX(-100%);
+    opacity: 0; }
+  /* line 152, D:/Code/Web Examples/responsive menu bar/scss/style.scss */
+  .navbar-menu.moves-out > li > ul {
+    -webkit-transform: translateX(0);
+    -moz-transform: translateX(0);
+    -ms-transform: translateX(0);
+    transform: translateX(0); }
+  /* line 156, D:/Code/Web Examples/responsive menu bar/scss/style.scss */
+  .navbar-menu .navbar-submenu-trigger, .navbar-menu .go-back a {
+    position: relative; }
+    /* line 159, D:/Code/Web Examples/responsive menu bar/scss/style.scss */
+    .navbar-menu .navbar-submenu-trigger::before, .navbar-menu .navbar-submenu-trigger::after, .navbar-menu .go-back a::before, .navbar-menu .go-back a::after {
+      /* arrow icon in CSS */
+      content: '';
+      position: absolute;
+      top: 50%;
+      margin-top: -1px;
+      display: inline-block;
+      height: 2px;
+      width: 10px;
+      background: #485c68;
+      -webkit-backface-visibility: hidden;
+      backface-visibility: hidden; }
+    /* line 172, D:/Code/Web Examples/responsive menu bar/scss/style.scss */
+    .navbar-menu .navbar-submenu-trigger::before, .navbar-menu .go-back a::before {
+      -webkit-transform: rotate(45deg);
+      -moz-transform: rotate(45deg);
+      -ms-transform: rotate(45deg);
+      transform: rotate(45deg); }
+    /* line 176, D:/Code/Web Examples/responsive menu bar/scss/style.scss */
+    .navbar-menu .navbar-submenu-trigger::after, .navbar-menu .go-back a::after {
+      -webkit-transform: rotate(-45deg);
+      -moz-transform: rotate(-45deg);
+      -ms-transform: rotate(-45deg);
+      transform: rotate(-45deg); }
+  /* line 181, D:/Code/Web Examples/responsive menu bar/scss/style.scss */
+  .navbar-menu .navbar-submenu-trigger::before, .navbar-menu .navbar-submenu-trigger::after {
+    /* arrow goes on the right side - children navigation */
+    right: 20px;
+    -webkit-transform-origin: 9px 50%;
+    -moz-transform-origin: 9px 50%;
+    -ms-transform-origin: 9px 50%;
+    -o-transform-origin: 9px 50%;
+    transform-origin: 9px 50%; }
+  /* line 187, D:/Code/Web Examples/responsive menu bar/scss/style.scss */
+  .navbar-menu .go-back a {
+    padding-left: 2em; }
+    /* line 190, D:/Code/Web Examples/responsive menu bar/scss/style.scss */
+    .navbar-menu .go-back a::before, .navbar-menu .go-back a::after {
+      /* arrow goes on the left side - go back button */
+      left: 20px;
+      -webkit-transform-origin: 1px 50%;
+      -moz-transform-origin: 1px 50%;
+      -ms-transform-origin: 1px 50%;
+      -o-transform-origin: 1px 50%;
+      transform-origin: 1px 50%; }
+  @media only screen and (min-width: 1024px) {
+    /* line 106, D:/Code/Web Examples/responsive menu bar/scss/style.scss */
+    .navbar-menu {
+      position: static;
+      visibility: visible;
+      width: 100%;
+      height: 80px;
+      line-height: 80px;
+      /* padding left = logo size + logo left position*/
+      padding: 0 5% 0 calc(5% + 124px);
+      background: transparent;
+      text-align: right; }
+      /* line 209, D:/Code/Web Examples/responsive menu bar/scss/style.scss */
+      .navbar-menu li {
+        display: inline-block;
+        height: 100%;
+        padding: 0 .4em; }
+        /* line 214, D:/Code/Web Examples/responsive menu bar/scss/style.scss */
+        .navbar-menu li a {
+          display: inline-block;
+          padding: .8em;
+          line-height: 1;
+          font-size: 1.6rem;
+          border-bottom: none;
+          /* Prevent .navbar-submenu-trigger flicker is Safari */
+          -webkit-transform: translateZ(0);
+          -moz-transform: translateZ(0);
+          -ms-transform: translateZ(0);
+          transform: translateZ(0);
+          -webkit-backface-visibility: hidden;
+          backface-visibility: hidden;
+          -moz-transition: opacity 0.2s;
+          -o-transition: opacity 0.2s;
+          -webkit-transition: opacity 0.2s;
+          transition: opacity 0.2s; }
+        /* line 228, D:/Code/Web Examples/responsive menu bar/scss/style.scss */
+        .navbar-menu li a:hover {
+          -webkit-backface-visibility: hidden;
+          backface-visibility: hidden;
+          opacity: .6; }
+      /* line 235, D:/Code/Web Examples/responsive menu bar/scss/style.scss */
+      .navbar-menu .go-back {
+        display: none; }
+      /* line 239, D:/Code/Web Examples/responsive menu bar/scss/style.scss */
+      .navbar-menu .navbar-submenu-trigger {
+        z-index: 1;
+        border: 1px solid rgba(255, 255, 255, 0.2);
+        border-radius: 5em;
+        -moz-transition: border 0.3s;
+        -o-transition: border 0.3s;
+        -webkit-transition: border 0.3s;
+        transition: border 0.3s; }
+        /* line 245, D:/Code/Web Examples/responsive menu bar/scss/style.scss */
+        .navbar-menu .navbar-submenu-trigger:hover {
+          border-color: rgba(255, 255, 255, 0.4); }
+        /* line 249, D:/Code/Web Examples/responsive menu bar/scss/style.scss */
+        .navbar-menu .navbar-submenu-trigger::before, .navbar-menu .navbar-submenu-trigger::after {
+          top: 22px;
+          right: 17px;
+          background-color: #ffffff;
+          /* change transform-origin to rotate the arrow  */
+          -webkit-transform-origin: 50% 50%;
+          -moz-transform-origin: 50% 50%;
+          -ms-transform-origin: 50% 50%;
+          -o-transform-origin: 50% 50%;
+          transform-origin: 50% 50%;
+          -moz-transition: transform 0.3s, width 0.3s, right 0.3s;
+          -o-transition: transform 0.3s, width 0.3s, right 0.3s;
+          -webkit-transition: transform 0.3s, width 0.3s, right 0.3s;
+          transition: transform 0.3s, width 0.3s, right 0.3s; }
+        /* line 258, D:/Code/Web Examples/responsive menu bar/scss/style.scss */
+        .navbar-menu .navbar-submenu-trigger::before {
+          right: 23px; }
+      /* line 263, D:/Code/Web Examples/responsive menu bar/scss/style.scss */
+      .navbar-menu .navbar-submenu-trigger {
+        padding-right: 2.4em;
+        padding-left: 1.1em; }
+      /* line 268, D:/Code/Web Examples/responsive menu bar/scss/style.scss */
+      .navbar-menu .sub-menu {
+        height: 80px;
+        background-color: #7e4d7e;
+        -webkit-transform: translateX(-100%);
+        -moz-transform: translateX(-100%);
+        -ms-transform: translateX(-100%);
+        transform: translateX(-100%);
+        opacity: 0; }
+      /* line 289, D:/Code/Web Examples/responsive menu bar/scss/style.scss */
+      .navbar-menu.moves-out > li > a {
+        -webkit-transform: translateX(0);
+        -moz-transform: translateX(0);
+        -ms-transform: translateX(0);
+        transform: translateX(0);
+        opacity: 1; }
+      /* line 294, D:/Code/Web Examples/responsive menu bar/scss/style.scss */
+      .navbar-menu.moves-out > li > ul {
+        -moz-transition: transform 0.3s;
+        -o-transition: transform 0.3s;
+        -webkit-transition: transform 0.3s;
+        transition: transform 0.3s;
+        -webkit-transform: translateY(0);
+        -moz-transform: translateY(0);
+        -ms-transform: translateY(0);
+        transform: translateY(0); }
+      /* line 299, D:/Code/Web Examples/responsive menu bar/scss/style.scss */
+      .navbar-menu.moves-out > li ul li {
+        opacity: 1;
+        -webkit-transform: translateY(0);
+        -moz-transform: translateY(0);
+        -ms-transform: translateY(0);
+        transform: translateY(0);
+        -moz-transition: transform 0.3s 0.2s, opacity 0.3s 0.2s;
+        -o-transition: transform 0.3s 0.2s, opacity 0.3s 0.2s;
+        -webkit-transition: transform 0.3s 0.2s, opacity 0.3s 0.2s;
+        transition: transform 0.3s 0.2s, opacity 0.3s 0.2s; }
+      /* line 307, D:/Code/Web Examples/responsive menu bar/scss/style.scss */
+      .navbar-menu.moves-out .navbar-submenu-trigger::before, .navbar-menu.moves-out .navbar-submenu-trigger::after {
+        width: 14px;
+        right: 17px; }
+      /* line 312, D:/Code/Web Examples/responsive menu bar/scss/style.scss */
+      .navbar-menu.moves-out .navbar-submenu-trigger::before {
+        -webkit-transform: rotate(225deg);
+        -moz-transform: rotate(225deg);
+        -ms-transform: rotate(225deg);
+        transform: rotate(225deg); }
+      /* line 316, D:/Code/Web Examples/responsive menu bar/scss/style.scss */
+      .navbar-menu.moves-out .navbar-submenu-trigger::after {
+        -webkit-transform: rotate(135deg);
+        -moz-transform: rotate(135deg);
+        -ms-transform: rotate(135deg);
+        transform: rotate(135deg); } }
+
+/* line 323, D:/Code/Web Examples/responsive menu bar/scss/style.scss */
+.mobile-menu-trigger {
+  display: block;
+  position: absolute;
+  right: 0;
+  top: 0;
+  height: 100%;
+  width: 50px;
+  /* hide text */
+  overflow: hidden;
+  white-space: nowrap;
+  color: transparent; }
+  /* line 336, D:/Code/Web Examples/responsive menu bar/scss/style.scss */
+  .mobile-menu-trigger span {
+    /* hamburger icon created in CSS */
+    position: absolute;
+    height: 2px;
+    width: 20px;
+    top: 50%;
+    margin-top: -1px;
+    left: 50%;
+    margin-left: -10px;
+    -moz-transition: background-color 0.3s 0.3s;
+    -o-transition: background-color 0.3s 0.3s;
+    -webkit-transition: background-color 0.3s 0.3s;
+    transition: background-color 0.3s 0.3s;
+    background-color: #ffffff; }
+    /* line 348, D:/Code/Web Examples/responsive menu bar/scss/style.scss */
+    .mobile-menu-trigger span::before, .mobile-menu-trigger span::after {
+      /* upper and lower lines of the menu icon */
+      content: '';
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      background-color: #ffffff;
+      /* Force Hardware Acceleration */
+      -webkit-transform: translateZ(0);
+      -moz-transform: translateZ(0);
+      -ms-transform: translateZ(0);
+      transform: translateZ(0);
+      -webkit-backface-visibility: hidden;
+      backface-visibility: hidden;
+      -moz-transition: transform 0.3s 0.3s;
+      -o-transition: transform 0.3s 0.3s;
+      -webkit-transition: transform 0.3s 0.3s;
+      transition: transform 0.3s 0.3s; }
+    /* line 363, D:/Code/Web Examples/responsive menu bar/scss/style.scss */
+    .mobile-menu-trigger span::before {
+      -webkit-transform: translateY(-6px);
+      -moz-transform: translateY(-6px);
+      -ms-transform: translateY(-6px);
+      transform: translateY(-6px); }
+    /* line 367, D:/Code/Web Examples/responsive menu bar/scss/style.scss */
+    .mobile-menu-trigger span::after {
+      -webkit-transform: translateY(6px);
+      -moz-transform: translateY(6px);
+      -ms-transform: translateY(6px);
+      transform: translateY(6px); }
+  /* line 373, D:/Code/Web Examples/responsive menu bar/scss/style.scss */
+  .nav-is-visible .mobile-menu-trigger span {
+    background-color: rgba(255, 255, 255, 0); }
+    /* line 375, D:/Code/Web Examples/responsive menu bar/scss/style.scss */
+    .nav-is-visible .mobile-menu-trigger span::before {
+      -webkit-transform: translateY(0) rotate(-45deg);
+      -moz-transform: translateY(0) rotate(-45deg);
+      -ms-transform: translateY(0) rotate(-45deg);
+      transform: translateY(0) rotate(-45deg); }
+    /* line 379, D:/Code/Web Examples/responsive menu bar/scss/style.scss */
+    .nav-is-visible .mobile-menu-trigger span::after {
+      -webkit-transform: translateY(0) rotate(45deg);
+      -moz-transform: translateY(0) rotate(45deg);
+      -ms-transform: translateY(0) rotate(45deg);
+      transform: translateY(0) rotate(45deg); }
+  @media only screen and (min-width: 1024px) {
+    /* line 323, D:/Code/Web Examples/responsive menu bar/scss/style.scss */
+    .mobile-menu-trigger {
+      display: none; } }
+
+/* line 390, D:/Code/Web Examples/responsive menu bar/scss/style.scss */
+.navbar-spacer {
+  /* never visible - this is used in jQuery to check the current MQ */
+  padding-top: 50px;
+  position: relative;
+  z-index: 2;
+  background-color: #f2f2f2;
+  -moz-transition: transform 0.3s;
+  -o-transition: transform 0.3s;
+  -webkit-transition: transform 0.3s;
+  transition: transform 0.3s; }
+  /* line 392, D:/Code/Web Examples/responsive menu bar/scss/style.scss */
+  .navbar-spacer::before {
+    display: none;
+    content: 'mobile'; }
+    @media only screen and (min-width: 1024px) {
+      /* line 392, D:/Code/Web Examples/responsive menu bar/scss/style.scss */
+      .navbar-spacer::before {
+        content: 'desktop'; } }
+  /* line 407, D:/Code/Web Examples/responsive menu bar/scss/style.scss */
+  .navbar-spacer.nav-is-visible {
+    -webkit-transform: translateX(-260px);
+    -moz-transform: translateX(-260px);
+    -ms-transform: translateX(-260px);
+    transform: translateX(-260px); }
+  @media only screen and (min-width: 1024px) {
+    /* line 390, D:/Code/Web Examples/responsive menu bar/scss/style.scss */
+    .navbar-spacer {
+      padding-top: 80px; }
+      /* line 414, D:/Code/Web Examples/responsive menu bar/scss/style.scss */
+      .navbar-spacer.nav-is-visible {
+        -webkit-transform: translateX(0);
+        -moz-transform: translateX(0);
+        -ms-transform: translateX(0);
+        transform: translateX(0); } }
+
+/*# sourceMappingURL=style.css.map */

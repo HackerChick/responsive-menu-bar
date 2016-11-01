@@ -15,22 +15,22 @@ jQuery( document ).ready( function( jQuery ){
     (!window.requestAnimationFrame) ? setTimeout( moveNavigation, 300 ) : window.requestAnimationFrame( moveNavigation );
   } );
 
-  // hover over sub-menu in desktop to open it
-  jQuery( '.menu-item-has-children' ).on( 'mouseover', function( event ){
-    if( !isDesktop() ) return;
-    jQuery( '.navbar-menu' ).addClass( 'submenu-open' );
-
-    // clear out any other submenus that might be open
-    jQuery( '.menu-item-has-children' ).removeClass( 'is-open' );
-
-    // and mark this one as open
-    jQuery( this ).addClass( 'is-open' );
-  } );
+//  // hover over sub-menu in desktop to open it
+//  jQuery( '.menu-item-has-children' ).on( 'mouseover', function( event ){
+//    if( !isDesktop() ) return;
+//    jQuery( '.navbar-menu' ).addClass( 'mobile-submenu-open' );
+//
+//    // clear out any other submenus that might be open
+//    jQuery( '.menu-item-has-children' ).removeClass( 'is-open' );
+//
+//    // and mark this one as open
+//    jQuery( this ).addClass( 'is-open' );
+//  } );
 
   jQuery( '.menu-item-has-children' ).on( 'click', function( event ){
     if( isDesktop() ) return;
 
-    jQuery( '.navbar-menu' ).addClass( 'submenu-open' );
+    jQuery( '.navbar-menu' ).addClass( 'mobile-submenu-open' );
     jQuery( this ).addClass( 'is-open' );
 
     event.preventDefault();
@@ -44,7 +44,7 @@ jQuery( document ).ready( function( jQuery ){
   jQuery( '.return-to-parent-menu' ).on( 'click', function( event ){
     if( isDesktop() ) return;
 
-    jQuery( '.navbar-menu' ).removeClass( 'submenu-open' );
+    jQuery( '.navbar-menu' ).removeClass( 'mobile-submenu-open' );
     jQuery( '.menu-item-has-children' ).removeClass( 'is-open' );
 
     event.preventDefault();
@@ -55,7 +55,7 @@ jQuery( document ).ready( function( jQuery ){
     event.preventDefault();
 
     // reset submenus
-    jQuery( '.navbar-menu' ).removeClass( 'submenu-open' );
+    jQuery( '.navbar-menu' ).removeClass( 'mobile-submenu-open' );
     jQuery( '.menu-item-has-children' ).removeClass( 'is-open' );
 
     jQuery( 'header' ).toggleClass( 'mobile-menu-is-open' );
@@ -70,7 +70,7 @@ jQuery( document ).ready( function( jQuery ){
   } );
 
   function resetMenu( ){
-    jQuery( '.navbar-menu' ).removeClass( 'submenu-open' );
+    jQuery( '.navbar-menu' ).removeClass( 'mobile-submenu-open' );
     jQuery( '.menu-item-has-children' ).removeClass( 'is-open' );
   }
 
@@ -88,12 +88,12 @@ jQuery( document ).ready( function( jQuery ){
   }
 
   function isDesktop(){
-    var priorState = windowState;
+//    var priorState = windowState;
 
     windowState = window.getComputedStyle( document.querySelector( 'header' ), '::before' ).getPropertyValue( 'content' ).replace( /"/g, '' ).replace( /'/g, "" );
 
     // this is terrible to hide this logic in here, should move outside of this function
-    if( priorState != windowState ) resetMenu();
+//    if( priorState != windowState ) resetMenu();
 
     return ( windowState == 'mobile' ) ? false : true;
   }

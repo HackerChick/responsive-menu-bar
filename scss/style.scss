@@ -186,14 +186,15 @@ header, .navbar-spacer{
     position: absolute;
     top:      0;
     left:     0;
-    width:    100%;
-    height:   80px;
+    zindex:   99999;
 
     // hide until they hover over the parent
     @include transform(translateX(-100%));
-    opacity:  0;
 
     @include mobile-menu(){
+      width:   100%;
+      height:  80px;
+      float:   inherit;
       // will display when it slides in
       opacity: 1;
       @include transform(translateX(260px));
@@ -205,6 +206,31 @@ header, .navbar-spacer{
 
 // Submenu navigation on desktop
 @include desktop-menu(){
+  .submenu-open .sub-menu{
+    @include transform(translateY(80px));
+    left: auto;
+
+    padding:          0.8em;
+    background-color: $color-1;
+
+    // not used on desktop
+    .return-to-parent-menu{ display: none; }
+
+    li{
+      display:          list-item;
+    }
+
+    li a{
+      color:            $color-3;
+      @include backface-visibility(hidden);
+
+      &:hover{
+        @include backface-visibility(hidden);
+        opacity: .6;
+      }
+    }
+  }
+
   .menu-item-has-children > a{
     position:      relative;
     z-index:       1;
@@ -247,12 +273,11 @@ header, .navbar-spacer{
     }
   }
 
-  // not used on desktop
-  .return-to-parent-menu{ display: none; }
 }
 
 // Submenu navigation for mobile
 @include mobile-menu(){
+
   .menu-item-has-children > a, .return-to-parent-menu{
     position: relative;
 
@@ -291,7 +316,6 @@ header, .navbar-spacer{
     @include transform-origin(1px 50%);
   }
 }
-
 
 .mobile-menu-trigger{
   // don't display mobile menu icon on desktop

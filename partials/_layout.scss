@@ -1,24 +1,4 @@
-// breakpoints
-
-$S:     480px;
-$M:     768px;
-$L:     1024px;
-
-// media queries
-
-// mobile-first
-@mixin MQ($canvas) {
-  @if $canvas == S {
-   @media only screen and (min-width: $S) { @content; }
-  }
-  @else if $canvas == M {
-   @media only screen and (min-width: $M) { @content; }
-  }
-  @else if $canvas == L {
-   @media only screen and (min-width: $L ) { @content; }
-  }
-}
-
-// desktop first
+// breakpoint to switch to mobile menu
+$mobile-menu-breakpoint: 1024px;
 @mixin mobile-menu { @media only screen and  ( max-width: $L ) { @content; } }
 @mixin desktop-menu { @media only screen and ( min-width: $L ) { @content; } }

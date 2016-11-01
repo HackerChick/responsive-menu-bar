@@ -4,6 +4,9 @@
  * Based off of code from the amazing CodyHouse (http://codyhouse.co)
  *****************************************************************************************************************/
 
+var priorState = "";
+var windowState = "";
+
 jQuery( document ).ready( function( jQuery ){
   //move nav element position according to window width
   moveNavigation();
@@ -15,7 +18,13 @@ jQuery( document ).ready( function( jQuery ){
   // hover over sub-menu in desktop to open it
   jQuery( '.menu-item-has-children' ).on( 'mouseover', function( event ){
     if( !isDesktop() ) return;
-    if( !jQuery( this ).hasClass( 'submenu-open' ) ) jQuery( this ).addClass( 'submenu-open' );
+    jQuery( '.navbar-menu' ).addClass( 'submenu-open' );
+
+    // clear out any other submenus that might be open
+    jQuery( '.menu-item-has-children' ).removeClass( 'is-open' );
+
+    // and mark this one as open
+    jQuery( this ).addClass( 'is-open' );
   } );
 
   jQuery( '.menu-item-has-children' ).on( 'click', function( event ){
@@ -44,7 +53,10 @@ jQuery( document ).ready( function( jQuery ){
   // mobile version - open/close navigation
   jQuery( '.mobile-menu-trigger' ).on( 'click', function( event ){
     event.preventDefault();
-    if( jQuery( 'header' ).hasClass( 'mobile-menu-is-open' ) ) jQuery( '.submenu-open' ).removeClass( 'submenu-open' );
+
+    // reset submenus
+    jQuery( '.navbar-menu' ).removeClass( 'submenu-open' );
+    jQuery( '.menu-item-has-children' ).removeClass( 'is-open' );
 
     jQuery( 'header' ).toggleClass( 'mobile-menu-is-open' );
     jQuery( '.navbar-menu' ).toggleClass( 'mobile-menu-is-open' );
@@ -53,14 +65,18 @@ jQuery( document ).ready( function( jQuery ){
 
   // mobile version - go back to main navigation
   jQuery( '.return-to-parent-menu' ).on( 'click', function( event ){
+    resetMenu( );
     event.preventDefault();
-    jQuery( '.navbar-menu' ).removeClass( 'submenu-open' );
   } );
+
+  function resetMenu( ){
+    jQuery( '.navbar-menu' ).removeClass( 'submenu-open' );
+    jQuery( '.menu-item-has-children' ).removeClass( 'is-open' );
+  }
 
   function moveNavigation(){
     var navigation = jQuery( '.main-navigation' );
-    var screenSize = isDesktop();
-    if( screenSize ){
+    if( isDesktop() ){
       //desktop screen - insert navigation inside header element
       navigation.detach();
       navigation.insertBefore( '.mobile-menu-trigger' );
@@ -72,7 +88,13 @@ jQuery( document ).ready( function( jQuery ){
   }
 
   function isDesktop(){
-    var windowSize = window.getComputedStyle( document.querySelector( 'header' ), '::before' ).getPropertyValue( 'content' ).replace( /"/g, '' ).replace( /'/g, "" );
-    return ( windowSize == 'mobile' ) ? false : true;
+    var priorState = windowState;
+
+    windowState = window.getComputedStyle( document.querySelector( 'header' ), '::before' ).getPropertyValue( 'content' ).replace( /"/g, '' ).replace( /'/g, "" );
+
+    // this is terrible to hide this logic in here, should move outside of this function
+    if( priorState != windowState ) resetMenu();
+
+    return ( windowState == 'mobile' ) ? false : true;
   }
 } );
